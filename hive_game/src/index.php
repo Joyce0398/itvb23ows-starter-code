@@ -161,7 +161,6 @@ if (empty($to)) {
                 ?>
             </select>
             <input type="submit" value="Move">
-            <!-- to do : dropdown only show own movable tiles  -->
         </form>
         <form method="post" action="pass.php">
             <input type="submit" value="Pass">
