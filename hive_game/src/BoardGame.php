@@ -26,7 +26,6 @@ class BoardGame
 
     public static function getState()
     {
-        // alleen SESSION hier en in play en index
         return serialize([$_SESSION['hand'], $_SESSION['board'], $_SESSION['player']]);
     }
 
@@ -47,7 +46,13 @@ class BoardGame
 
     public function popTile(string $position): array
     {
-        return array_pop($this->board[$position]);
+        $tile = array_pop($this->board[$position]);
+
+        if (empty($this->board[$position])) {
+            unset($this->board[$position]);
+        }
+
+        return $tile;
     }
 
     public function getOccupiedTiles()
