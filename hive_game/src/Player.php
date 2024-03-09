@@ -56,6 +56,11 @@ class Player
         return $this->hand;
     }
 
+    public function getBoard(): BoardGame
+    {
+        return $this->board;
+    }
+
     public function getId(): int
     {
         return $this->player;

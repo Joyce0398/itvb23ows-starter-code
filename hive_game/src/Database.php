@@ -1,8 +1,6 @@
 <?php
 namespace Joyce0398\HiveGame;
 
-use Joyce0398\HiveGame\BoardGame;
-
 use mysqli;
 
 class Database {

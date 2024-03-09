@@ -84,13 +84,9 @@ class GameLogic
 
             if ($from == $to) {
                 throw new Exception('Tile must move');
-            } elseif ($board->isOccupied($to) && $tile[1] != "B") {
-                throw new Exception('Tile not empty');
-            } elseif ($tile[1] == "Q" || $tile[1] == "B") {
-                if (!$board->slide($from, $to)) {
-                    throw new Exception('Tile must slide');
-                }
             }
+
+            $this->validatePieceRules($player, $from, $to, $tile);
 
         } catch (Exception $e) {
             if ($tile) {
@@ -105,6 +101,26 @@ class GameLogic
         }
         return $tile;
     }
-    
-    
+
+    public function validatePieceRules(Player $player, $from, $to, $tile)
+    {
+        $board = $player->getBoard();
+        if($tile[1] == 'G') {
+            $grasshopper = new Grasshopper($player);
+            $grasshopper->validateMove($from, $to);
+        }
+        elseif($tile[1] == 'Q') {
+            if ($board->isOccupied($to)) {
+                throw new Exception('Tile not empty');
+            }
+            if (!$board->slide($from, $to)) {
+                throw new Exception('Tile must slide');
+            }
+        }
+        elseif($tile[1] == 'B') {
+            if (!$board->slide($from, $to)) {
+                throw new Exception('Tile must slide');
+            }
+        }
+    }
 }

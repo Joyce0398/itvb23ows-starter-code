@@ -26,7 +26,7 @@ unset($_SESSION['error']);
 
 try {
     $gameLogic = new GameLogic($board);
-    $tile = $gameLogic->checkMove($currentPlayer, $to, $from, $board);
+    $tile = $gameLogic->checkMove($currentPlayer, $to, $from);
 
     if ($board->isOccupied($to)) {
         $board->pushTile($to, $tile[1], $tile[0]);
