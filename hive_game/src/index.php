@@ -177,5 +177,8 @@ if (empty($to)) {
                 }
             ?>
         </ol>
+        <form method="post" action="undo.php">
+            <input type="submit" value="Undo">
+        </form>
     </body>
 </html>

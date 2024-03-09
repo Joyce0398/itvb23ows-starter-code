@@ -34,7 +34,7 @@ try {
         $board->setTile($to, $tile[1], $tile[0]);
     }
 
-    $insertId = Database::move($gameId, $from, $to, $lastMove, BoardGame::getState());
+    $insertId = Database::move($gameId, $from, $to, $lastMove, Utils::getState());
 
     $_SESSION['player'] = Utils::getOtherPlayerId($currentPlayer);
     $_SESSION['last_move'] = $insertId;

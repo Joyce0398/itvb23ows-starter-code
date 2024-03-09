@@ -8,7 +8,7 @@ class Utils {
         return 1 - $currentPlayer->getId();
     }
 
-    public static function createBoardAndPlayersFromSession(array $session)
+    public static function createBoardAndPlayersFromSession(array $session): array
     {
         $board = new BoardGame($session['board'] ?? []);
         if(isset($session['hand'])) {
@@ -21,5 +21,16 @@ class Utils {
             new Player(1, $board, $hands[1])
         ];
         return [$board, $players];
+    }
+
+    public static function getState()
+    {
+        // alleen SESSION hier en in play en index
+        return serialize([$_SESSION['hand'], $_SESSION['board'], $_SESSION['player']]);
+    }
+
+    public static function setState($state)
+    {
+        list($_SESSION['hand'], $_SESSION['board'], $_SESSION['player']) = unserialize($state);
     }
 }

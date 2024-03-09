@@ -126,4 +126,18 @@ class GameLogic
             }
         }
     }
+
+    public function undo($lastMove)
+    {
+        if(empty($this->board->getBoard())) {
+            throw new Exception('Cant undo');
+        }
+
+        $result = Database::getMove($lastMove);
+        Database::deleteMove($result['id']);;
+
+        Utils::setState($result['state']);
+
+        return $result['previous_id'];
+    }
 }

@@ -28,7 +28,7 @@ try {
     $board->setTile($to, $piece, $currentPlayer->getId());
     $currentPlayer->getHand()->removePiece($piece);
 
-    $insertId = Database::play($gameId, $piece, $to, $lastMove, BoardGame::getState());
+    $insertId = Database::play($gameId, $piece, $to, $lastMove, Utils::getState());
 
     $_SESSION['hand'] = [$players[0]->getHand()->toArray(), $players[1]->getHand()->toArray()];
     $_SESSION['last_move'] = $insertId;

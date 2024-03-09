@@ -24,17 +24,6 @@ class BoardGame
         return $this->board;
     }
 
-    public static function getState()
-    {
-        // alleen SESSION hier en in play en index
-        return serialize([$_SESSION['hand'], $_SESSION['board'], $_SESSION['player']]);
-    }
-
-    public static function setState($state)
-    {
-        list($_SESSION['hand'], $_SESSION['board'], $_SESSION['player']) = unserialize($state);
-    }
-
     public function isEmpty()
     {
         return count($this->board) === 0;
