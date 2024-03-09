@@ -157,4 +157,19 @@ class BoardGame
         }
         return true;
     }
+
+    public function getPlayedPieces() {
+        $result = [];
+        foreach ($this->board as $subArray) {
+            foreach ($subArray as $piece) {
+                $pieceType = $piece[1];
+                if (isset($result[$pieceType])) {
+                    $result[$pieceType]++;
+                } else {
+                    $result[$pieceType] = 1;
+                }
+            }
+        }
+        return $result;
+    }
 }
