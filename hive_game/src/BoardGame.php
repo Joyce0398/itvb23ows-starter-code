@@ -161,4 +161,24 @@ class BoardGame
         }
         return $result;
     }
+
+    public function getPlayerTiles(Player $player) {
+        $tiles = array_filter($this->board, function ($value) use ($player) {
+            return is_array($value) && isset($value[0]) && is_array($value[0]) && $value[0][0] == $player->getId();
+        });
+        return array_keys($tiles);
+    }
+
+    public function getPlayerPieces(Player $player): array
+    {
+        $tiles = $this->getPlayerTiles($player);
+
+        $pieces = [];
+        foreach($tiles as $tile) {
+            $tileOnTop = end($this->board[$tile]);
+            $piece = $tileOnTop[1];
+            $pieces[] = $piece;
+        }
+        return $pieces;
+    }
 }
