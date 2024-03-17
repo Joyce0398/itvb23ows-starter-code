@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Joyce0398\HiveGame\BoardGame;
+use Joyce0398\HiveGame\Database;
 use Joyce0398\HiveGame\GameLogic;
 use Joyce0398\HiveGame\Hand;
 
@@ -96,5 +97,33 @@ class TestGameLogic extends TestCase
         $player1 = new Player(1, $board, $hand);
         $this->assertTrue($gameLogic->playerHasWon($player));
         $this->assertTrue($gameLogic->playerHasWon($player1));
+    }
+
+    public function testUndo()
+    {
+        $double = Mockery::mock('overload:' . Database::class);
+
+        $double->shouldReceive('getMove')->with(2)->andReturn([
+            'id' => 2,
+            'game_id' => 1,
+            'type' => 'play',
+            'move_from' => 'Q',
+            'move_to' => '0,0',
+            'previous_id' => 1,
+            'state' => '',
+        ])->once();
+
+        $double->shouldReceive('deleteMove')->with(2)->andReturn(true)->once();
+
+        $_SESSION = [];
+
+        $board = new BoardGame([
+            '0,0' => [[0, 'Q']]
+        ]);
+
+        $gameLogic = new GameLogic($board);
+        $result = $gameLogic->undo(2);
+
+        $this->assertEquals(1, $result);
     }
 }
