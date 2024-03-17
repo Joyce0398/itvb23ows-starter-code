@@ -5,6 +5,7 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Joyce0398\HiveGame\Database;
+use Joyce0398\HiveGame\GameLogic;
 use Joyce0398\HiveGame\Utils;
 
 if (!isset($_SESSION['board'])) {
@@ -16,13 +17,25 @@ $gameId = $_SESSION['game_id'];
 
 [$board, $players] = Utils::createBoardAndPlayersFromSession($_SESSION);
 $currentPlayer = $players[$_SESSION['player']];
-
+$gameLogic = new GameLogic($board);
 $availablePieces = $currentPlayer->getHand()->getAvailablePieces();
 
 $to = $currentPlayer->getAvailablePositions();
 if (empty($to)) {
     $to[] = '0,0';
 }
+
+$playerOneWon = $gameLogic->playerHasWon($players[0]);
+$playerTwoWon = $gameLogic->playerHasWon($players[0]);
+$gameState = '';
+if ($playerOneWon && $playerTwoWon) {
+    $gameState = 'Game ended in a draw';
+} elseif ($playerOneWon) {
+    $gameState = 'Black has won';
+} elseif ($playerTwoWon) {
+    $gameState = 'White has won';
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -105,6 +118,11 @@ if (empty($to)) {
                 }
             ?>
         </div>
+        <h1>
+            <?php
+            echo $gameState
+            ?>
+        </h1>
         <div class="hand">
             White:
             <?php

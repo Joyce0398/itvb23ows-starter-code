@@ -140,4 +140,25 @@ class GameLogic
 
         return $result['previous_id'];
     }
+
+    public function playerHasWon(Player $player): bool
+    {
+        $queenPiece = $this->board->findPiece('Q', $player);
+
+        if($queenPiece) {
+            $origin = explode(',', $queenPiece);
+            $count = 0;
+            foreach ($this->board::$OFFSETS as $offset) {
+                $neighbour = $origin[0] + $offset[0] . (',' . ($origin[1] + $offset[1]));
+                if ($this->board->isOccupied($neighbour)) {
+                    $count++;
+                }
+            }
+
+            if ($count == 6) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

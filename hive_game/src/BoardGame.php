@@ -57,6 +57,19 @@ class BoardGame
         });
     }
 
+    public function findPiece(string $piece, Player $player)
+    {
+        foreach ($this->board as $tile => $tileData)
+        {
+            [$playerTile, $pieceTile] = end($tileData);
+            if ($playerTile == $player->getId() && $pieceTile == $piece)
+            {
+                return $tile;
+            }
+        }
+        return null;
+    }
+
     public function isPlayerOccupying($from, $player)
     {
         if (isset($this->board[$from]) && count($this->board[$from]) > 0) {
