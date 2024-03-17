@@ -143,8 +143,8 @@ class GameLogic
     {
         $to = [];
         $offsets = $this->board::$OFFSETS;
+        $positions = array_keys($this->board->getBoard());
         foreach ($offsets as $pq) {
-            $positions = array_keys($this->board->getBoard());
             foreach ($positions as $pos) {
                 $pq2 = explode(',', $pos);
                 $result = ($pq[0] + $pq2[0]) . ',' . ($pq[1] + $pq2[1]);
@@ -167,17 +167,20 @@ class GameLogic
         $to = [];
         $offsets = $this->board::$OFFSETS;
 
+        $positions = array_keys($this->board->getBoard());
+
         foreach ($pieces as $piece) {
             foreach ($from as $fromTile) {
                 foreach ($offsets as $pq) {
-                    $pq2 = explode(',', $fromTile);
-                    $toCoordinate = ($pq[0] + $pq2[0]) . ',' . ($pq[1] + $pq2[1]);
-
-                    try {
-                        $this->validateMove($player, $toCoordinate, $fromTile, $piece);
-                        $to[] = $toCoordinate;
-                    } catch (Exception $ex) {
-                        continue;
+                    foreach ($positions as $pos) {
+                        $pq2 = explode(',', $pos);
+                        $toCoordinate = ($pq[0] + $pq2[0]) . ',' . ($pq[1] + $pq2[1]);
+                        try {
+                            $this->validateMove($player, $toCoordinate, $fromTile, $piece);
+                            $to[] = $toCoordinate;
+                        } catch (Exception $ex) {
+                            continue;
+                        }
                     }
                 }
             }

@@ -24,6 +24,7 @@ $to = $currentPlayer->getAvailablePositions();
 if (empty($to)) {
     $to[] = '0,0';
 }
+$moves = $gameLogic->getValidPositionsMove($currentPlayer);
 
 $playerOneWon = $gameLogic->playerHasWon($players[0]);
 $playerTwoWon = $gameLogic->playerHasWon($players[0]);
@@ -173,7 +174,7 @@ if ($playerOneWon && $playerTwoWon) {
             </select>
             <select name="to">
                 <?php
-                    foreach ($to as $pos) {
+                    foreach ($moves as $pos) {
                         echo "<option value=\"$pos\">$pos</option>";
                     }
                 ?>
