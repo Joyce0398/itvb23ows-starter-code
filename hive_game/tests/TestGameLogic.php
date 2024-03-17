@@ -126,4 +126,43 @@ class TestGameLogic extends TestCase
 
         $this->assertEquals(1, $result);
     }
+
+    public function testValidMoveTwoQueens()
+    {
+        $board1 = new BoardGame([
+            '0,0' => [[0, 'Q']],
+            '1,0' => [[1, 'Q']]]
+        );
+
+        $hand = new Hand(["Q" => 0, "B" => 2, "S" => 2, "A" => 3, "G" => 3]);
+
+        $gameLogic = new GameLogic($board1);
+
+        $player = new Player(1, $board1, $hand);
+
+        $tile = $gameLogic->checkMove($player, '0,1', '1,0');
+        $this->assertEquals([1, 'Q'], $tile);
+    }
+
+    public function testNotValidMoveTwoQueens()
+    {
+        $board = new BoardGame(array(
+            '0,0' => [[0, 'B']],
+            '1,0' => [[1, 'B']]
+        ));
+
+        $hand = new Hand([
+            'Q' => 1,
+            'B' => 0,
+            'S' => 0,
+            'A' => 3,
+            'G' => 3,
+        ]);
+
+        $this->expectException(Exception::class);
+
+        $gameLogic = new GameLogic($board);
+        $player = new Player(0, $board, $hand);
+        $gameLogic->checkMove($player, '0,0', '0,1');
+    }
 }
