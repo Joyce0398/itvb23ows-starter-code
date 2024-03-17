@@ -1,16 +1,11 @@
 <?php
 
-namespace Joyce0398\HiveGame;
+namespace Joyce0398\HiveGame\pieces;
 
 use Exception;
 
-class Grasshopper
+class Grasshopper extends AbstractPiece
 {
-    private Player $player;
-    public function __construct(Player $player)
-    {
-        $this->player = $player;
-    }
 
     public function validateMove(string $from, string $to): bool
     {

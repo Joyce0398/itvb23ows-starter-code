@@ -3,6 +3,7 @@
 namespace Joyce0398\HiveGame;
 
 use Exception;
+use Joyce0398\HiveGame\pieces\Grasshopper;
 
 class GameLogic
 {
@@ -73,7 +74,7 @@ class GameLogic
         $tile = null;
         try {
             if (!$board->isOccupied($from)) {
-                throw new \Exception('Board position is empty');
+                throw new Exception('Board position is empty');
             } elseif (!$player->hasTile($from)) {
                 throw new Exception("Tile is not owned by player");
             } elseif ($player->getHand()->hasPiece('Q')) {
@@ -105,6 +106,17 @@ class GameLogic
         return $tile;
     }
 
+    public function validateMove(Player $player, $to, $from, $piece) {
+        $tile = $this->checkMove($player, $to, $from);
+        if ($tile) {
+            if ($this->board->isOccupied($from)) {
+                $this->board->pushTile($from, $tile[1], $tile[0]);
+            } else {
+                $this->board->setTile($from, $tile[1], $tile[0]);
+            }
+        }
+    }
+
     public function validatePieceRules(Player $player, $from, $to, $tile)
     {
         $board = $player->getBoard();
@@ -127,6 +139,53 @@ class GameLogic
         }
     }
 
+    public function getValidPositionsPlay(Player $player): array
+    {
+        $to = [];
+        $offsets = $this->board::$OFFSETS;
+        foreach ($offsets as $pq) {
+            $positions = array_keys($this->board->getBoard());
+            foreach ($positions as $pos) {
+                $pq2 = explode(',', $pos);
+                $result = ($pq[0] + $pq2[0]) . ',' . ($pq[1] + $pq2[1]);
+                try {
+                    $this->checkPlayBoard($player, $result);
+                } catch (Exception $ex) {
+                    continue;
+                }
+                $to[] = $result;
+            }
+        }
+        return array_unique($to);
+    }
+
+    public function getValidPositionsMove(Player $player): array
+    {
+        $from = $this->board->getPlayerTiles($player);
+        $pieces = $this->board->getPlayerPieces($player);
+
+        $to = [];
+        $offsets = $this->board::$OFFSETS;
+
+        foreach ($pieces as $piece) {
+            foreach ($from as $fromTile) {
+                foreach ($offsets as $pq) {
+                    $pq2 = explode(',', $fromTile);
+                    $toCoordinate = ($pq[0] + $pq2[0]) . ',' . ($pq[1] + $pq2[1]);
+
+                    try {
+                        $this->validateMove($player, $toCoordinate, $fromTile, $piece);
+                        $to[] = $toCoordinate;
+                    } catch (Exception $ex) {
+                        continue;
+                    }
+                }
+            }
+        }
+        return array_unique($to);
+    }
+
+
     public function undo($lastMove)
     {
         if(empty($this->board->getBoard())) {
@@ -139,6 +198,21 @@ class GameLogic
         Utils::setState($result['state']);
 
         return $result['previous_id'];
+    }
+
+    public function checkSkip(Player $player)
+    {
+        $pieces = $player->getHand()->getAvailablePieces();
+        if(!empty($pieces))
+        {
+            $plays = $this->getValidPositionsPlay($player);
+        }
+
+        $moves = $this->getValidPositionsMove($player);
+        if(!empty($plays) && !empty($moves))
+        {
+            throw new Exception('You can still play a piece or move');
+        }
     }
 
     public function playerHasWon(Player $player): bool
