@@ -4,6 +4,7 @@ namespace Joyce0398\HiveGame;
 
 use Exception;
 use Joyce0398\HiveGame\pieces\Grasshopper;
+use Joyce0398\HiveGame\pieces\SoldierAnt;
 use Joyce0398\HiveGame\pieces\Spider;
 
 class GameLogic
@@ -141,6 +142,10 @@ class GameLogic
         elseif($tile[1] == 'S') {
             $spider = new Spider($player);
             $spider->validateMove($from, $to);
+        }
+        elseif($tile[1] == 'A') {
+            $ant = new SoldierAnt($player);
+            $ant->validateMove($from, $to);
         }
     }
 
