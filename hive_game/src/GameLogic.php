@@ -221,7 +221,7 @@ class GameLogic
         }
 
         $moves = $this->getValidPositionsMove($player);
-        if(!empty($plays) && !empty($moves))
+        if(!empty($plays) || !empty($moves))
         {
             throw new Exception('You can still play a piece or move');
         }

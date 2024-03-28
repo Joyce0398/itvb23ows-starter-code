@@ -6,7 +6,6 @@ use Joyce0398\HiveGame\BoardGame;
 use Joyce0398\HiveGame\Database;
 use Joyce0398\HiveGame\GameLogic;
 use Joyce0398\HiveGame\Hand;
-
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -164,5 +163,28 @@ class TestGameLogic extends TestCase
         $gameLogic = new GameLogic($board);
         $player = new Player(0, $board, $hand);
         $gameLogic->checkMove($player, '0,0', '0,1');
+    }
+
+    public function testSkip()
+    {
+        $board = new BoardGame([
+            '0,0' => [[0, 'Q']]
+        ]);
+        $hand = new Hand(["Q" => 0, "B" => 0, "S" => 0, "A" => 0, "G" => 0]);
+        $player = new Player(0, $board, $hand);
+        $gameLogic = new GameLogic($board);
+        $this->assertTrue($gameLogic->checkSkip($player));
+    }
+
+    public function testSkipException()
+    {
+        $board = new BoardGame([
+            "0,0" => [[0, "Q"]]
+        ]);
+        $hand = new Hand(["Q" => 1, "B" => 1, "S" => 1, "A" => 1, "G" => 1]);
+        $player = new Player(0, $board, $hand);
+        $gameLogic = new GameLogic($board);
+        $this->expectException(Exception::class);
+        $gameLogic->checkSkip($player);
     }
 }
