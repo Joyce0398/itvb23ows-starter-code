@@ -199,5 +199,8 @@ if ($playerOneWon && $playerTwoWon) {
         <form method="post" action="undo.php">
             <input type="submit" value="Undo">
         </form>
+        <form method="post" action="ai_move.php">
+            <input type="submit" value="AI">
+        </form>
     </body>
 </html>

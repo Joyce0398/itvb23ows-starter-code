@@ -1,7 +1,9 @@
 {
     "name": "joyce0398/hive-game",
     "require": {
-        "ext-mysqli": "*"
+        "ext-mysqli": "*",
+      "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.8"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5",

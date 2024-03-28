@@ -42,6 +42,7 @@ class TestPlayer extends TestCase
         ]);
         $hand = new Hand(["Q" => 0, "B" => 2, "S" => 2, "A" => 3, "G" => 3]);
         $player = new Player(0, $board, $hand);
-        $this->assertEquals(['0,-1', '-1,0', '-1,1'], $player->getAvailablePositions());
+        $pos = $player->getAvailablePositions();
+        $this->assertEquals(['0,-1', '-1,0', '-1,1'], $pos);
     }
 }
