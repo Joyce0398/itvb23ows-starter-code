@@ -44,6 +44,14 @@ services:
         volumes:
             - sonarqube-data:/opt/sonarqube/data
 
+    hive-ai:
+        build:
+            context: ./itvb23ows-hive-ai-main
+        ports:
+            - "5000:5000"
+        networks:
+            - network
+
 volumes:
     jenkins-data:
     sonarqube-data:
