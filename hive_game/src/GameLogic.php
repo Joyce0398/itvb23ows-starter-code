@@ -24,10 +24,10 @@ class GameLogic
         } elseif (!$this->board->isEmpty() && !$this->board->hasNeighbour($to)) {
             throw new Exception("Board position has no neighbour");
         } elseif ($hand->handSize() < 11 && !$this->board->neighboursAreSameColor($player->getId(), $to)) {
-            $pieces = $this->board->getPlayedPieces();
-            if(count($pieces) > 1 || !isset($pieces['Q'])) {
-                throw new Exception("Board position has opposing neighbour");
-            }
+//            $pieces = $this->board->getPlayedPieces();
+//            if(count($pieces) > 1 || !isset($pieces['Q'])) {
+            throw new Exception("Board position has opposing neighbour");
+//            }
         }
     }
 
@@ -84,9 +84,8 @@ class GameLogic
             }
             $tile = $board->popTile($from);
             $availablePieces = array_keys($player->getHand()->getAvailablePieces());
-            if (count($availablePieces) != 4 && !isset($availablePieces['Q'])) {
-                $this->validateHiveSplit($to);
-            }
+
+            $this->validateHiveSplit($to);
 
             if ($from == $to) {
                 throw new Exception('Tile must move');
