@@ -67,11 +67,6 @@ class Grasshopper extends AbstractPiece
         return $y1 == $y2;
     }
 
-    private function isVerticalMove(int $x1, int $x2): bool
-    {
-        return $x1 == $x2;
-    }
-
     private function generateCoordinatesHorizontal(int $startX, int $endX, int $y): array
     {
         return $this->generateCoordinates($startX, $endX, $y, true);

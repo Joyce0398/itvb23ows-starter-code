@@ -60,7 +60,8 @@ class SoldierAnt extends AbstractPiece
         foreach ($this->player->getBoard()::$OFFSETS as $offset) {
             $neighbour = ($x + $offset[0]) . ',' . ($y + $offset[1]);
 
-            if (!$this->isVisited($neighbour, $visited) && !$this->player->getBoard()->isOccupied($neighbour) && $this->player->getBoard()->hasNeighbour($neighbour)) {
+            if (!$this->isVisited($neighbour, $visited) && !$this->player->getBoard()->isOccupied($neighbour)
+                && $this->player->getBoard()->hasNeighbour($neighbour)) {
                 $queue->enqueue($neighbour);
             }
         }

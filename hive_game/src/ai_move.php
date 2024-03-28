@@ -5,13 +5,8 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Joyce0398\HiveGame\AI;
-//use Joyce0398\HiveGame\BoardGame;
 use Joyce0398\HiveGame\Database;
-//use Joyce0398\HiveGame\GameLogic;
-//use Joyce0398\HiveGame\Hand;
-//use Joyce0398\HiveGame\Player;
 use Joyce0398\HiveGame\Utils;
-
 
 $gameId = $_SESSION['game_id'];
 $hands = $_SESSION['hand'];

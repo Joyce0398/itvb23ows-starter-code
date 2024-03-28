@@ -6,7 +6,7 @@ use Joyce0398\HiveGame\pieces\SoldierAnt;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
 
-class TestSoldierAnt extends TestCase
+class SoldierAntTest extends TestCase
 {
     public function testMoveToOccupiedTile()
     {

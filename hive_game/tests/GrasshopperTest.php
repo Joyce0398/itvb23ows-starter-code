@@ -6,7 +6,7 @@ use Joyce0398\HiveGame\pieces\Grasshopper;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
 
-class TestGrasshopper extends TestCase
+class GrasshopperTest extends TestCase
 {
     public function testGrasshopperJump()
     {

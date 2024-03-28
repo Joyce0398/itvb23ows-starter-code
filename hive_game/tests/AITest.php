@@ -8,7 +8,7 @@ use Joyce0398\HiveGame\AI;
 use Joyce0398\HiveGame\BoardGame;
 use PHPUnit\Framework\TestCase;
 
-class TestAI extends TestCase
+class AITest extends TestCase
 {
     public function testAIMove()
     {
@@ -26,7 +26,8 @@ class TestAI extends TestCase
         $board = new BoardGame();
 
         $ai = new AI(1, $client);
-        $response = $ai->aiMove($board, [["Q" => 0, "B" => 0, "S" => 0, "A" => 1, "G" => 0], ["Q" => 0, "B" => 0, "S" => 0, "A" => 1, "G" => 0]]);
+        $response = $ai->aiMove($board, [["Q" => 0, "B" => 0, "S" => 0, "A" => 1, "G" => 0],
+            ["Q" => 0, "B" => 0, "S" => 0, "A" => 1, "G" => 0]]);
 
         $expectedResponse = array (
             0 => 'play',

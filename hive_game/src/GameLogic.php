@@ -107,7 +107,7 @@ class GameLogic
         return $tile;
     }
 
-    public function validateMove(Player $player, $to, $from, $piece) {
+    public function validateMove(Player $player, $to, $from) {
         $tile = $this->checkMove($player, $to, $from);
         if ($tile) {
             if ($this->board->isOccupied($from)) {
@@ -205,8 +205,7 @@ class GameLogic
         }
 
         $result = Database::getMove($lastMove);
-        Database::deleteMove($result['id']);;
-
+        Database::deleteMove($result['id']);
         Utils::setState($result['state']);
 
         return $result['previous_id'];
@@ -225,6 +224,7 @@ class GameLogic
         {
             throw new Exception('You can still play a piece or move');
         }
+        return true;
     }
 
     public function playerHasWon(Player $player): bool

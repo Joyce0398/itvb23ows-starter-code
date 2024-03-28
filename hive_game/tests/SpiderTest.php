@@ -6,7 +6,7 @@ use Joyce0398\HiveGame\pieces\Spider;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
 
-class TestSpider extends TestCase
+class SpiderTest extends TestCase
 {
     public function testMoveToOccupiedTile()
     {

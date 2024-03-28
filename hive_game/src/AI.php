@@ -33,7 +33,6 @@ class AI
             'json' => $data
         ]);
 
-        $result = json_decode($response->getBody());
-        return $result;
+        return json_decode($response->getBody());
     }
 }

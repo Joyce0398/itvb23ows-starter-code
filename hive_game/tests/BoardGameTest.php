@@ -7,7 +7,7 @@ use Joyce0398\HiveGame\Hand;
 
 use PHPUnit\Framework\TestCase;
 
-class TestBoardGame extends TestCase
+class BoardGameTest extends TestCase
 {
     public function testGetAvailablePiecesSingle()
     {

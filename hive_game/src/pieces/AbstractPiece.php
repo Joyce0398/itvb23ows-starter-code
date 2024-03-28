@@ -13,5 +13,4 @@ abstract class AbstractPiece
     }
 
     abstract function validateMove(string $from, string $to): bool;
-
 }

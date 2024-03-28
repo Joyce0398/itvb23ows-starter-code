@@ -8,7 +8,7 @@ use Joyce0398\HiveGame\Player;
 
 use PHPUnit\Framework\TestCase;
 
-class TestPlayer extends TestCase
+class PlayerTest extends TestCase
 {
     public function testGetOwnedTilesSingle()
     {

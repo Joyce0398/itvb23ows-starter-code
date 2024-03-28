@@ -9,7 +9,7 @@ use Joyce0398\HiveGame\Hand;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
 
-class TestGameLogic extends TestCase
+class GameLogicTest extends TestCase
 {
     public function testQueenMoveFour()
     {

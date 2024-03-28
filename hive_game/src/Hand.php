@@ -15,22 +15,12 @@ class Hand {
     }
 
     public function handSize() {
-        return array_sum($this->hand); 
+        return array_sum($this->hand);
     }
 
     public function hasPiece(string $piece): bool
     {
         return $this->hand[$piece] > 0;
-    }
-
-    public function removePiece(string $piece): void
-    {
-        $this->hand[$piece]--;
-    }
-
-    public function containsTile(string $tile): bool
-    {
-        return in_array($tile, $this->hand);
     }
 
     public function getAvailablePieces()
@@ -42,5 +32,4 @@ class Hand {
     {
         return $this->hand;
     }
-
 }
