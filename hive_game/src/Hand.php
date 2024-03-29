@@ -4,7 +4,7 @@ namespace Joyce0398\HiveGame;
 class Hand {
     private array $hand;
 
-    public static $defaultHand = ["Q" => 1, "B" => 2, "S" => 2, "A" => 3, "G" => 3];
+    public static array $defaultHand = ["Q" => 1, "B" => 2, "S" => 2, "A" => 3, "G" => 3];
 
     public function __construct(array $hand = null){
         if($hand == null) {
