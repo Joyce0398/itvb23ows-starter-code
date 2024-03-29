@@ -23,12 +23,22 @@ class Hand {
         return $this->hand[$piece] > 0;
     }
 
-    public function getAvailablePieces()
+    public function getAvailablePieces(): array
     {
         return array_filter($this->hand);
     }
 
-    public function toArray()
+    public function removePiece(string $piece): void
+    {
+        $this->hand[$piece]--;
+    }
+
+    public function containsTile(string $tile): bool
+    {
+        return in_array($tile, $this->hand);
+    }
+
+    public function toArray(): array
     {
         return $this->hand;
     }

@@ -2,7 +2,7 @@
 
 namespace Joyce0398\HiveGame\pieces;
 
-use Exception;
+use Joyce0398\HiveGame\HiveGameException;
 use SplQueue;
 
 class SoldierAnt extends AbstractPiece
@@ -10,10 +10,10 @@ class SoldierAnt extends AbstractPiece
     public function validateMove(string $from, string $to): bool
     {
         if ($this->player->getBoard()->isOccupied($to)) {
-            throw new Exception('Tile is occupied');
+            throw new HiveGameException('Tile is occupied');
         }
         if (!$this->validateSlide($from, $to)) {
-            throw new Exception('Tile has to slide');
+            throw new HiveGameException('Tile has to slide');
         }
         return true;
     }
@@ -67,3 +67,4 @@ class SoldierAnt extends AbstractPiece
         }
     }
 }
+

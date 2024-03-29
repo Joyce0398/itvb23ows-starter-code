@@ -2,6 +2,7 @@
 
 use Joyce0398\HiveGame\BoardGame;
 use Joyce0398\HiveGame\Hand;
+use Joyce0398\HiveGame\HiveGameException;
 use Joyce0398\HiveGame\pieces\Spider;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,7 @@ class SpiderTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $spider = new Spider($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $this->assertTrue($spider->validateMove('0,-1', '2,0'));
     }
     public function testIsLessThanThree()
@@ -35,7 +36,7 @@ class SpiderTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $spider = new Spider($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $this->assertTrue($spider->validateMove('0,-1', '2,-1'));
     }
 
@@ -51,7 +52,7 @@ class SpiderTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $spider = new Spider($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $this->assertTrue($spider->validateMove('0,-1', '4,-1'));
     }
 

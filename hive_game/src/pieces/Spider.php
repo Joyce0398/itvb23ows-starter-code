@@ -2,7 +2,7 @@
 
 namespace Joyce0398\HiveGame\pieces;
 
-use Exception;
+use Joyce0398\HiveGame\HiveGameException;
 use SplQueue;
 
 class Spider extends AbstractPiece
@@ -10,13 +10,13 @@ class Spider extends AbstractPiece
     public function validateMove(string $from, string $to): bool
     {
         if ($this->player->getBoard()->isOccupied($to)) {
-            throw new Exception('Tile is occupied');
+            throw new HiveGameException('Tile is occupied');
         }
         if (!$this->isThreeStepsApart($from, $to)) {
-            throw new Exception('Move is not three steps apart');
+            throw new HiveGameException('Move is not three steps apart');
         }
         if (!$this->validateSlide($from, $to)) {
-            throw new Exception('Tile has to slide');
+            throw new HiveGameException('Tile has to slide');
         }
         return true;
     }
