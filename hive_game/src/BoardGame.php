@@ -45,11 +45,6 @@ class BoardGame
         return $tile;
     }
 
-    public function getTile(string $position)
-    {
-        return $this->board[$position];
-    }
-
     public function getOccupiedTiles()
     {
         return array_filter($this->board, function ($tileStack) {
@@ -124,11 +119,6 @@ class BoardGame
         return isset($this->board[$position]);
     }
 
-    public function len($tile)
-    {
-        return $tile ? count($tile) : 0;
-    }
-
     public function pushTile(string $position, string $piece, int $player)
     {
         array_push($this->board[$position], array($player, $piece));
@@ -158,21 +148,6 @@ class BoardGame
             return false;
         }
         return true;
-    }
-
-    public function getPlayedPieces() {
-        $result = [];
-        foreach ($this->board as $subArray) {
-            foreach ($subArray as $piece) {
-                $pieceType = $piece[1];
-                if (isset($result[$pieceType])) {
-                    $result[$pieceType]++;
-                } else {
-                    $result[$pieceType] = 1;
-                }
-            }
-        }
-        return $result;
     }
 
     public function getPlayerTiles(Player $player) {
