@@ -23,7 +23,7 @@ class Player
         $board = $this->board;
         $gameLogic = new GameLogic($board);
         $to = [];
-        foreach ($board::$OFFSETS as $pq) {
+        foreach ($board::$offsets as $pq) {
             foreach ($board->getKeys() as $pos) {
                 $pq2 = explode(',', $pos);
                 try {

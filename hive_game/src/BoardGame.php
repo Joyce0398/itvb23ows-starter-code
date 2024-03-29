@@ -6,7 +6,7 @@ use Exception;
 
 class BoardGame
 {
-    public static $OFFSETS = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
+    public static $offsets = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
     public array $board;
 
     public function __construct(array $board = [])
@@ -14,17 +14,17 @@ class BoardGame
         $this->board = $board;
     }
 
-    public static function getOffsets()
+    public static function getOffsets(): array
     {
-        return self::$OFFSETS;
+        return self::$offsets;
     }
 
-    public function getBoard()
+    public function getBoard(): array
     {
         return $this->board;
     }
 
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return count($this->board) === 0;
     }
@@ -45,7 +45,12 @@ class BoardGame
         return $tile;
     }
 
-    public function getOccupiedTiles()
+    public function getTile(string $position)
+    {
+        return $this->board[$position];
+    }
+
+    public function getOccupiedTiles(): array
     {
         return array_filter($this->board, function ($tileStack) {
             return !empty($tileStack);
@@ -65,7 +70,7 @@ class BoardGame
         return null;
     }
 
-    public function isPlayerOccupying($from, $player)
+    public function isPlayerOccupying($from, $player): bool
     {
         if (isset($this->board[$from]) && count($this->board[$from]) > 0) {
             return $this->board[$from][count($this->board[$from]) - 1][0] == $player;
@@ -74,7 +79,7 @@ class BoardGame
         return false;
     }
 
-    public function isNeighbour($a, $b)
+    public function isNeighbour($a, $b): bool
     {
         $a = explode(',', $a);
         $b = explode(',', $b);
@@ -90,7 +95,7 @@ class BoardGame
         return false;
     }
 
-    public function hasNeighbour($a)
+    public function hasNeighbour($a): bool
     {
         foreach (array_keys($this->board) as $b) {
             if ($this->isNeighbour($a, $b)) {
@@ -100,7 +105,7 @@ class BoardGame
         return false;
     }
 
-    public function neighboursAreSameColor($player, $a)
+    public function neighboursAreSameColor($player, $a): bool
     {
         foreach ($this->board as $b => $st) {
             if (!$st) {
@@ -117,6 +122,11 @@ class BoardGame
     public function isOccupied(string $position): bool
     {
         return isset($this->board[$position]);
+    }
+
+    public function len($tile)
+    {
+        return $tile ? count($tile) : 0;
     }
 
     public function pushTile(string $position, string $piece, int $player)
@@ -136,7 +146,7 @@ class BoardGame
         }
         $b = explode(',', $to);
         $common = [];
-        foreach (self::$OFFSETS as $pq) {
+        foreach (self::$offsets as $pq) {
             $p = $b[0] + $pq[0];
             $q = $b[1] + $pq[1];
             if ($this->isNeighbour($from, $p . "," . $q)) {
@@ -150,7 +160,23 @@ class BoardGame
         return true;
     }
 
-    public function getPlayerTiles(Player $player) {
+    public function getPlayedPieces() {
+        $result = [];
+        foreach ($this->board as $subArray) {
+            foreach ($subArray as $piece) {
+                $pieceType = $piece[1];
+                if (isset($result[$pieceType])) {
+                    $result[$pieceType]++;
+                } else {
+                    $result[$pieceType] = 1;
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function getPlayerTiles(Player $player): array
+    {
         $tiles = array_filter($this->board, function ($value) use ($player) {
             return is_array($value) && isset($value[0]) && is_array($value[0]) && $value[0][0] == $player->getId();
         });

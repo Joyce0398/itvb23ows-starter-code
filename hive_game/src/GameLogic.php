@@ -150,7 +150,7 @@ class GameLogic
     public function getValidPositionsPlay(Player $player): array
     {
         $to = [];
-        $offsets = $this->board::$OFFSETS;
+        $offsets = $this->board::$offsets;
         $positions = array_keys($this->board->getBoard());
         foreach ($offsets as $pq) {
             foreach ($positions as $pos) {
@@ -173,7 +173,7 @@ class GameLogic
         $pieces = $this->board->getPlayerPieces($player);
 
         $to = [];
-        $offsets = $this->board::$OFFSETS;
+        $offsets = $this->board::$offsets;
 
         $positions = array_keys($this->board->getBoard());
 
@@ -233,7 +233,7 @@ class GameLogic
         if($queenPiece) {
             $origin = explode(',', $queenPiece);
             $count = 0;
-            foreach ($this->board::$OFFSETS as $offset) {
+            foreach ($this->board::$offsets as $offset) {
                 $neighbour = $origin[0] + $offset[0] . (',' . ($origin[1] + $offset[1]));
                 if ($this->board->isOccupied($neighbour)) {
                     $count++;

@@ -60,7 +60,7 @@ class Spider extends AbstractPiece
     private function enqueueNeighbours($tile, $visited, SplQueue $queue) {
         list($x, $y) = explode(',', $tile);
 
-        foreach ($this->player->getBoard()::$OFFSETS as $offset) {
+        foreach ($this->player->getBoard()::$offsets as $offset) {
             $neighbour = ($x + $offset[0]) . ',' . ($y + $offset[1]);
 
             if (!$this->isVisited($neighbour, $visited) && !$this->player->getBoard()->isOccupied($neighbour)
