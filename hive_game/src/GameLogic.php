@@ -83,7 +83,6 @@ class GameLogic
                 throw new HiveGameException("Queen bee is not played");
             }
             $tile = $board->popTile($from);
-            $availablePieces = array_keys($player->getHand()->getAvailablePieces());
 
             $this->validateHiveSplit($to);
 
