@@ -6,6 +6,7 @@ use Joyce0398\HiveGame\BoardGame;
 use Joyce0398\HiveGame\Database;
 use Joyce0398\HiveGame\GameLogic;
 use Joyce0398\HiveGame\Hand;
+use Joyce0398\HiveGame\HiveGameException;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
 
@@ -158,7 +159,7 @@ class GameLogicTest extends TestCase
             'G' => 3,
         ]);
 
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
 
         $gameLogic = new GameLogic($board);
         $player = new Player(0, $board, $hand);
@@ -184,7 +185,7 @@ class GameLogicTest extends TestCase
         $hand = new Hand(["Q" => 1, "B" => 1, "S" => 1, "A" => 1, "G" => 1]);
         $player = new Player(0, $board, $hand);
         $gameLogic = new GameLogic($board);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $gameLogic->checkSkip($player);
     }
 }

@@ -2,23 +2,24 @@
 
 namespace Joyce0398\HiveGame\pieces;
 
-use Exception;
+
+use Joyce0398\HiveGame\HiveGameException;
 
 class Grasshopper extends AbstractPiece
 {
     public function validateMove(string $from, string $to): bool
     {
         if ($this->player->getBoard()->isOccupied($to)) {
-            throw new Exception('Tile not empty');
+            throw new HiveGameException('Tile not empty');
         }
         if (!$this->checkJumpTiles($from, $to)) {
-            throw new Exception('Grasshopper needs to move at least 1 tile');
+            throw new HiveGameException('Grasshopper needs to move at least 1 tile');
         }
         if (!$this->isStraight($from, $to)) {
-            throw new Exception('Move is not straight');
+            throw new HiveGameException('Move is not straight');
         }
         if (!$this->noEmptyPositions($from, $to)) {
-            throw new Exception('Grasshopper cant jump over empty positions');
+            throw new HiveGameException('Grasshopper cant jump over empty positions');
         }
         return true;
     }

@@ -2,6 +2,7 @@
 
 use Joyce0398\HiveGame\BoardGame;
 use Joyce0398\HiveGame\Hand;
+use Joyce0398\HiveGame\HiveGameException;
 use Joyce0398\HiveGame\pieces\Grasshopper;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +31,7 @@ class GrasshopperTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $grassHopper = new Grasshopper($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $grassHopper->validateMove('-1,0', '2,0');
     }
 
@@ -60,7 +61,7 @@ class GrasshopperTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $grassHopper = new Grasshopper($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $grassHopper->validateMove('-1,0', '1,1');
     }
 
@@ -77,7 +78,7 @@ class GrasshopperTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $grassHopper = new Grasshopper($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $grassHopper->validateMove('-1,0', '3,0');
     }
 
@@ -91,7 +92,7 @@ class GrasshopperTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $grassHopper = new Grasshopper($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $grassHopper->validateMove('0,-1', '1,-1');
     }
 }

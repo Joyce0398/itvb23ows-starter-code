@@ -2,7 +2,7 @@
 
 namespace Joyce0398\HiveGame;
 
-use Exception;
+use Joyce0398\HiveGame\HiveGameException;
 use Joyce0398\HiveGame\pieces\Grasshopper;
 use Joyce0398\HiveGame\pieces\SoldierAnt;
 use Joyce0398\HiveGame\pieces\Spider;
@@ -20,13 +20,13 @@ class GameLogic
     {
         $hand = $player->getHand();
         if ($this->board->isOccupied($to)) {
-            throw new Exception('Board position is not empty');
+            throw new HiveGameException('Board position is not empty');
         } elseif (!$this->board->isEmpty() && !$this->board->hasNeighbour($to)) {
-            throw new Exception("Board position has no neighbour");
+            throw new HiveGameException("Board position has no neighbour");
         } elseif ($hand->handSize() < 11 && !$this->board->neighboursAreSameColor($player->getId(), $to)) {
 //            $pieces = $this->board->getPlayedPieces();
 //            if(count($pieces) > 1 || !isset($pieces['Q'])) {
-            throw new Exception("Board position has opposing neighbour");
+            throw new HiveGameException("Board position has opposing neighbour");
 //            }
         }
     }
@@ -36,9 +36,9 @@ class GameLogic
         $hand = $player->getHand();
         $this->checkPlayBoard($player, $to);
         if (!$hand->hasPiece($piece)) {
-            throw new Exception("Player does not have the tile");
+            throw new HiveGameException("Player does not have the tile");
         } elseif ($hand->handSize() <= 8 && $hand->hasPiece('Q') && $piece != 'Q') {
-            throw new Exception('Must play queen bee');
+            throw new HiveGameException('Must play queen bee');
         }
         return true;
     }
@@ -48,7 +48,7 @@ class GameLogic
         $board = $this->board;
 
         if (!$board->hasNeighBour($to)) {
-            throw new Exception("Move would split hive");
+            throw new HiveGameException("Move would split hive");
         }
 
         $all = $board->getKeys();
@@ -66,7 +66,7 @@ class GameLogic
             }
         }
         if ($all) {
-            throw new Exception("Move would split hive");
+            throw new HiveGameException("Move would split hive");
         }
     }
 
@@ -76,11 +76,11 @@ class GameLogic
         $tile = null;
         try {
             if (!$board->isOccupied($from)) {
-                throw new Exception('Board position is empty');
+                throw new HiveGameException('Board position is empty');
             } elseif (!$player->hasTile($from)) {
-                throw new Exception("Tile is not owned by player");
+                throw new HiveGameException("Tile is not owned by player");
             } elseif ($player->getHand()->hasPiece('Q')) {
-                throw new Exception("Queen bee is not played");
+                throw new HiveGameException("Queen bee is not played");
             }
             $tile = $board->popTile($from);
             $availablePieces = array_keys($player->getHand()->getAvailablePieces());
@@ -88,12 +88,12 @@ class GameLogic
             $this->validateHiveSplit($to);
 
             if ($from == $to) {
-                throw new Exception('Tile must move');
+                throw new HiveGameException('Tile must move');
             }
 
             $this->validatePieceRules($player, $from, $to, $tile);
 
-        } catch (Exception $e) {
+        } catch (HiveGameException $e) {
             if ($tile) {
                 if ($board->isOccupied($from)) {
                     $board->pushTile($from, $tile[1], $tile[0]);
@@ -127,15 +127,15 @@ class GameLogic
         }
         elseif($tile[1] == 'Q') {
             if ($board->isOccupied($to)) {
-                throw new Exception('Tile not empty');
+                throw new HiveGameException('Tile not empty');
             }
             if (!$board->slide($from, $to)) {
-                throw new Exception('Tile must slide');
+                throw new HiveGameException('Tile must slide');
             }
         }
         elseif($tile[1] == 'B') {
             if (!$board->slide($from, $to)) {
-                throw new Exception('Tile must slide');
+                throw new HiveGameException('Tile must slide');
             }
         }
         elseif($tile[1] == 'S') {
@@ -159,7 +159,7 @@ class GameLogic
                 $result = ($pq[0] + $pq2[0]) . ',' . ($pq[1] + $pq2[1]);
                 try {
                     $this->checkPlayBoard($player, $result);
-                } catch (Exception $ex) {
+                } catch (HiveGameException $ex) {
                     continue;
                 }
                 $to[] = $result;
@@ -187,7 +187,7 @@ class GameLogic
                         try {
                             $this->validateMove($player, $toCoordinate, $fromTile, $piece);
                             $to[] = $toCoordinate;
-                        } catch (Exception $ex) {
+                        } catch (HiveGameException $ex) {
                             continue;
                         }
                     }
@@ -201,7 +201,7 @@ class GameLogic
     public function undo($lastMove)
     {
         if(empty($this->board->getBoard())) {
-            throw new Exception('Cant undo');
+            throw new HiveGameException('Cant undo');
         }
 
         $result = Database::getMove($lastMove);
@@ -222,7 +222,7 @@ class GameLogic
         $moves = $this->getValidPositionsMove($player);
         if(!empty($plays) || !empty($moves))
         {
-            throw new Exception('You can still play a piece or move');
+            throw new HiveGameException('You can still play a piece or move');
         }
         return true;
     }

@@ -2,6 +2,7 @@
 
 use Joyce0398\HiveGame\BoardGame;
 use Joyce0398\HiveGame\Hand;
+use Joyce0398\HiveGame\HiveGameException;
 use Joyce0398\HiveGame\pieces\SoldierAnt;
 use Joyce0398\HiveGame\Player;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ class SoldierAntTest extends TestCase
         $hand = new Hand();
         $player = new Player(0, $board, $hand);
         $ant = new SoldierAnt($player);
-        $this->expectException(Exception::class);
+        $this->expectException(HiveGameException::class);
         $this->assertTrue($ant->validateMove('1,-1', '1,0'));
     }
 
