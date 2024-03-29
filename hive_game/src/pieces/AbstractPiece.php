@@ -12,5 +12,5 @@ abstract class AbstractPiece
         $this->player = $player;
     }
 
-    abstract function validateMove(string $from, string $to): bool;
+    abstract public function validateMove(string $from, string $to): bool;
 }
