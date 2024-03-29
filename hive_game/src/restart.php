@@ -8,7 +8,7 @@ use Joyce0398\HiveGame\Database;
 use Joyce0398\HiveGame\Hand;
 
 $_SESSION['board'] = [];
-$_SESSION['hand'] = [Hand::$DEFAULT_HAND, Hand::$DEFAULT_HAND];
+$_SESSION['hand'] = [Hand::$defaultHand, Hand::$defaultHand];
 $_SESSION['player'] = 0;
 
 $insertId = Database::restart();
